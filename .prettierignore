@@ -1,0 +1,4 @@
+# What files to ignore
+build
+coverage
+README.md

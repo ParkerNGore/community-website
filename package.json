@@ -11,10 +11,10 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "npx prettier --check . && react-scripts start",
+    "build": "npx prettier --check . && react-scripts build",
+    "test": "npx prettier --check . && react-scripts test",
+    "eject": "npx prettier --check . && react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,5 +30,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "2.1.2"
   }
 }
