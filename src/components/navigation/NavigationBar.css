@@ -1,0 +1,30 @@
+/* 
+Used to create css variables. Explained here:
+https://www.w3schools.com/css/css3_variables.asp
+*/
+:root {
+  --highlight-color: #80bfff;
+}
+
+nav {
+  background-color: #99ccff;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.4rem;
+}
+
+nav > a {
+  padding: 0.6rem;
+  border: 1px solid #0066cc;
+  border-radius: 10rem;
+  text-decoration: none;
+}
+
+nav > a:hover {
+  background-color: var(--highlight-color);
+  color: #3232f1;
+}
+
+.nav-link-active {
+  background-color: var(--highlight-color);
+}
