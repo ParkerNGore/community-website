@@ -1,6 +1,10 @@
 import React from "react";
 
+import axios from "axios";
+
 import "./RegisterPage.css";
+
+import { createUser } from "../components/UserService";
 
 function RegisterPage() {
   const [username, setUsername] = React.useState("");
@@ -10,9 +14,13 @@ function RegisterPage() {
   function handleSubmit(event) {
     console.dir(event);
     event.preventDefault();
-    console.dir(username);
-    console.dir(password);
-    console.dir(timezone);
+    createUser({
+      username,
+      password,
+      timezone,
+    });
+    axios.post("http://localhost:3005/api/newUser");
+    //TODO: HAVEN'T TESTED QUITE YET!
   }
 
   return (
