@@ -7,19 +7,21 @@ import NavigationBar from "./components/navigation/NavigationBar";
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Route path="/">
-          <NavigationBar />
-        </Route>
+      <div className="page-background">
+        <Router>
+          <Route path="/">
+            <NavigationBar />
+          </Route>
 
-        {
-          // Used to redirect any user at "/" to "/homepage" to
-          // ensure the NavLink activeClass works as expected
-        }
-        <Route exact path="/">
-          <Redirect to="/home-page" />
-        </Route>
-      </Router>
+          {
+            // Used to redirect any user at "/" to "/homepage" to
+            // ensure the NavLink activeClass works as expected
+          }
+          <Route exact path="/">
+            <Redirect to="/home-page" />
+          </Route>
+        </Router>
+      </div>
     </div>
   );
 }

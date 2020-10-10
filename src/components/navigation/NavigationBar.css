@@ -3,11 +3,11 @@ Used to create css variables. Explained here:
 https://www.w3schools.com/css/css3_variables.asp
 */
 :root {
-  --highlight-color: #80bfff;
+  --highlight-color: #f79d65;
 }
 
 nav {
-  background-color: #99ccff;
+  background-color: #f7b267;
   display: flex;
   justify-content: space-evenly;
   padding: 0.4rem;
@@ -15,14 +15,15 @@ nav {
 
 nav > a {
   padding: 0.6rem;
-  border: 1px solid #0066cc;
+  border: 1px solid #f25c54;
   border-radius: 10rem;
   text-decoration: none;
+  color: #f25c54;
 }
 
 nav > a:hover {
   background-color: var(--highlight-color);
-  color: #3232f1;
+  color: #f25c54;
 }
 
 .nav-link-active {
