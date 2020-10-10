@@ -11,10 +11,10 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "npx prettier --check . && react-scripts start",
-    "build": "npx prettier --check . && react-scripts build",
-    "test": "npx prettier --check . && react-scripts test",
-    "eject": "npx prettier --check . && react-scripts eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
