@@ -14,7 +14,10 @@ import Calendar from "./containers/Calendar";
 import NewsHub from "./containers/NewsHub";
 import GroupFinder from "./containers/GroupFinder";
 import AboutUs from "./containers/AboutUs";
+
 import UserProfile from "./containers/UserProfile";
+import LoginPage from "./containers/LoginPage";
+import RegisterPage from "./containers/RegisterPage";
 
 function App() {
   return (
@@ -58,9 +61,19 @@ function App() {
               <AboutUs />
             </Route>
 
-            <Route path="/user-profile">
+            <Route exact path="/user-profile">
               <UserProfile />
             </Route>
+            <>
+              <Switch>
+                <Route path="/user-profile/login">
+                  <LoginPage />
+                </Route>
+                <Route path="/user-profile/register">
+                  <RegisterPage />
+                </Route>
+              </Switch>
+            </>
           </Switch>
         </Router>
       </div>
