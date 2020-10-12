@@ -15,12 +15,12 @@ import { createUser, updateUser } from "../UserService";
             label: "Username",
             defaultValue: "",
             inputType: "text"
-        }
+        },
         password: {
             label: "Password",
             defaultValue: "",
             inputType: "text"
-        }
+        },
         timezone: {
             label: "Timezone",
             defaultValue: "",
@@ -83,10 +83,10 @@ class AddEditModel extends Component {
       modelObject[prop] = this.state[prop];
     }
 
-    if (this.props.method.toLowerCase() == "post") {
+    if (this.props.method.toUpperCase() == "POST") {
       // CREATING
       handleCreation(modelObject, true);
-    } else if (this.props.method.toLowerCase() == "put")
+    } else if (this.props.method.toUpperCase() == "PUT")
       // EDITING
       handleCreation(modelObject, false);
   }
@@ -140,7 +140,7 @@ class AddEditModel extends Component {
 
           <button type="submit">Submit</button>
         </form>
-        {submitted && <Redirect to="/user-profile" />}
+        {submitted && <Redirect to={this.props.redirectURL} />}
       </>
     );
   }
