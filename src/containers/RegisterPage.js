@@ -17,7 +17,6 @@ function RegisterPage() {
       password,
       timezone,
     });
-    //TODO: HAVEN'T TESTED QUITE YET!
   }
 
   return (
