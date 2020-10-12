@@ -57,23 +57,11 @@ class AddEditModel extends Component {
 
     const stateObject = {};
 
-    console.log("Iterating through reference keys...");
     for (const key in reference) {
-      console.log(`handling key: ${key}`);
       stateObject[key] = reference[key].defaultValue;
     }
-    console.log("finished iterating through reference keys");
 
     stateObject.submitted = false;
-
-    console.log("StateObject:");
-    console.dir(stateObject);
-
-    this.setState(stateObject, () => {
-      // Debugging Purposes
-      console.log("Showing state...");
-      console.dir(this.state);
-    });
   }
 
   handleSubmit(event) {
