@@ -61,8 +61,6 @@ function RegisterPage() {
           <button type="submit">Submit</button>
         </form>
       </main>
-
-      {submitted && <Redirect to="/user-profile" />}
     </div>
   );
 }
