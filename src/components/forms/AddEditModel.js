@@ -48,9 +48,27 @@ class AddEditModel extends Component {
   // Stores information about the model
   // defaultValue, inputType...
   modelMapCache = new Map(); //TODO: Remove new map initializaiton after development. Sepcified here to allow IntelliJ to autocomplete
-  state = {};
+  state = {
+    username: {
+      label: "Username",
+      defaultValue: "",
+      inputType: "text",
+    },
+    password: {
+      label: "Password",
+      defaultValue: "",
+      inputType: "text",
+    },
+    timezone: {
+      label: "Timezone",
+      defaultValue: "",
+      inputType: "text",
+    },
+  };
 
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+
     const { reference } = this.props;
 
     this.modelMapCache = new Map(Object.entries(reference)); // Converts the object to a map for reference.
@@ -62,10 +80,16 @@ class AddEditModel extends Component {
     }
 
     stateObject.submitted = false;
+
+    this.state = stateObject;
+
+    //bind methods
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRequest = this.handleRequest.bind(this);
+    this.handleOnClick = this.handleOnClick.bind(this);
   }
 
   handleSubmit(event) {
-    console.dir(event);
     event.preventDefault();
 
     let modelObject = {};
@@ -80,12 +104,14 @@ class AddEditModel extends Component {
       modelObject[prop] = this.state[prop];
     }
 
-    if (this.props.method.equalsIgnoreCase("POST")) {
+    console.log(`method is string: ${typeof this.props.method === "string"}`);
+
+    if (this.props.method.toUpperCase() === "POST") {
       // CREATING
-      this.handleCreation(modelObject, true);
-    } else if (this.props.method.equalsIgnoreCase("PUT"))
+      this.handleRequest(modelObject, true);
+    } else if (this.props.method.toUpperCase() === "PUT")
       // EDITING
-      this.handleCreation(modelObject, false);
+      this.handleRequest(modelObject, false);
   }
 
   handleRequest(modelObject, creating) {
@@ -119,17 +145,25 @@ class AddEditModel extends Component {
       });
   }
 
+  handleOnClick(e) {
+    console.log("Printing modelMapCache...");
+    [...this.modelMapCache.keys()].forEach((key) => {
+      console.log(`key: ${key} value: ${this.modelMapCache.get(key)}`);
+    });
+    console.log("Finished printing modelMapCache");
+  }
+
   render() {
     return (
       <>
         <form className="add-edit-form" onSubmit={(e) => this.handleSubmit(e)}>
-          {Array.from(this.modelMapCache, (key, valueObject) => {
+          {[...this.modelMapCache.keys()].map((key) => {
             return (
               <label key={key}>
-                ${valueObject.label}:
+                {this.modelMapCache.get(key).label}:
                 <input
                   value={this.state[key]}
-                  type={valueObject.inputType}
+                  type={this.modelMapCache.get(key).inputType}
                   onChange={(e) =>
                     this.setState({
                       [key]: e.target.value,
@@ -142,6 +176,7 @@ class AddEditModel extends Component {
 
           <button type="submit">Submit</button>
         </form>
+        <button onClick={this.handleOnClick}>Test</button>
         {this.submitted && <Redirect to={this.props.redirectURL} />}
       </>
     );
