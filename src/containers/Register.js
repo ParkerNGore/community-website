@@ -1,12 +1,12 @@
 import React from "react";
 
-import "./RegisterPage.css";
+import "./Register.css";
 
 import AddEditModel from "../components/forms/AddEditModel";
 
 function RegisterPage() {
   return (
-    <div className="register-page-container">
+    <div className="register-container">
       <main>
         <h1>Welcome to the Register Page!</h1>
         <AddEditModel

@@ -16,8 +16,9 @@ import GroupFinder from "./containers/GroupFinder";
 import AboutUs from "./containers/AboutUs";
 
 import UserProfile from "./containers/UserProfile";
-import LoginPage from "./containers/LoginPage";
-import RegisterPage from "./containers/RegisterPage";
+import LoginPage from "./containers/Login";
+import RegisterPage from "./containers/Register";
+import EditUser from "./containers/EditUser";
 
 function App() {
   return (
@@ -71,6 +72,9 @@ function App() {
                 </Route>
                 <Route path="/user-profile/register">
                   <RegisterPage />
+                </Route>
+                <Route path="/user-profile/edit-user/:id">
+                  <EditUser />
                 </Route>
               </Switch>
             </>

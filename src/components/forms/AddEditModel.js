@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { createUser, updateUser } from "../UserService";
+import { createUser, updateUser, getUser } from "../service/UserService";
 import { Redirect } from "react-router-dom";
+import trimSequilzeDates from "../util/ModelUtil";
 
 /* 
     Props:
@@ -48,23 +49,7 @@ class AddEditModel extends Component {
   // Stores information about the model
   // defaultValue, inputType...
   modelMapCache = new Map(); //TODO: Remove new map initializaiton after development. Sepcified here to allow IntelliJ to autocomplete
-  state = {
-    username: {
-      label: "Username",
-      defaultValue: "",
-      inputType: "text",
-    },
-    password: {
-      label: "Password",
-      defaultValue: "",
-      inputType: "text",
-    },
-    timezone: {
-      label: "Timezone",
-      defaultValue: "",
-      inputType: "text",
-    },
-  };
+  state = {};
 
   constructor(props) {
     super(props);
@@ -81,11 +66,72 @@ class AddEditModel extends Component {
 
     stateObject.submitted = false;
 
+    if (this.props.method.toUpperCase() === "PUT") {
+      stateObject.retrievedObject = false;
+    }
+
     this.state = stateObject;
 
     //bind methods
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRequest = this.handleRequest.bind(this);
+    this.handleRetrieveModel = this.handleRetrieveModel.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.method.toUpperCase() === "PUT") {
+      this.handleRetrieveModel();
+    }
+  }
+
+  handleRetrieveModel() {
+    console.log("called handleRetrieveModel");
+    //TODO: avoid repeating code and perhaps create a static map reference between label and a list of update and create methods
+    let requestPromise;
+    switch (this.props.label) {
+      case "User":
+        requestPromise = getUser(this.props.id);
+        break;
+      case "Calendar":
+        break;
+      case "Event":
+        break;
+      default:
+        console.error(
+          `Given model label doesn't match any expected labels: ${this.props.label}`
+        );
+        break;
+    }
+    let thisReference = this;
+    requestPromise
+      .then((response) => {
+        let model = response.data;
+
+        console.log("Response:");
+        console.dir(response);
+        console.dir(model);
+
+        model = trimSequilzeDates(model);
+
+        console.dir(model);
+        console.log("Set State");
+        thisReference.setState(model, () => {
+          console.log(`State has been set. State...`);
+          console.dir(thisReference.state);
+        });
+        thisReference.setState(
+          {
+            retrievedObject: true,
+          },
+          () => {
+            console.log(`retrievedObject has been set. State...`);
+            console.dir(thisReference.state);
+          }
+        );
+      })
+      .catch((error) => {
+        console.log(`Error: ${error}`);
+      });
   }
 
   handleSubmit(event) {
@@ -96,7 +142,7 @@ class AddEditModel extends Component {
     // Populates the model object,
     // but ignores any non-model state
     for (const prop in this.state) {
-      if (prop === "submitted") {
+      if (prop === "submitted" || prop === "retrievedObject") {
         continue;
       }
 
@@ -117,6 +163,8 @@ class AddEditModel extends Component {
     let requestPromise;
     switch (this.props.label) {
       case "User":
+        console.log("ModelObject for updateUser:");
+        console.dir(modelObject);
         requestPromise = creating
           ? createUser(modelObject)
           : updateUser(this.props.id, modelObject);
