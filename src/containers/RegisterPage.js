@@ -3,11 +3,14 @@ import React from "react";
 import "./RegisterPage.css";
 
 import { createUser } from "../components/UserService";
+import { Redirect } from "react-router-dom";
 
 function RegisterPage() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [timezone, setTimezone] = React.useState("");
+
+  const [submitted, setSubmitted] = React.useState(false);
 
   function handleSubmit(event) {
     console.dir(event);
@@ -16,7 +19,14 @@ function RegisterPage() {
       username,
       password,
       timezone,
-    });
+    })
+      .then(() => {
+        alert(`Successfully created user: ${username}!`);
+        setSubmitted(true);
+      })
+      .catch((error) => {
+        alert(`An error has occured: ${error}`);
+      });
   }
 
   return (
@@ -51,6 +61,8 @@ function RegisterPage() {
           <button type="submit">Submit</button>
         </form>
       </main>
+
+      {submitted && <Redirect to="/user-profile" />}
     </div>
   );
 }
