@@ -1,7 +1,5 @@
 import React from "react";
 
-import axios from "axios";
-
 import "./RegisterPage.css";
 
 import { createUser } from "../components/UserService";
@@ -19,7 +17,6 @@ function RegisterPage() {
       password,
       timezone,
     });
-    axios.post("http://localhost:3005/api/newUser");
     //TODO: HAVEN'T TESTED QUITE YET!
   }
 
