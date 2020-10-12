@@ -2,9 +2,7 @@ import React from "react";
 
 import "./RegisterPage.css";
 
-import { createUser } from "../components/UserService";
-import { Redirect } from "react-router-dom";
-import { AddEditModel } from "../components/forms/AddEditModel";
+import AddEditModel from "../components/forms/AddEditModel";
 
 function RegisterPage() {
   return (

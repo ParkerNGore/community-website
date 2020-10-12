@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { createUser, updateUser } from "../UserService";
+import { Redirect } from "react-router-dom";
 
 /* 
     Props:
@@ -47,24 +48,32 @@ class AddEditModel extends Component {
   // Stores information about the model
   // defaultValue, inputType...
   modelMapCache = new Map(); //TODO: Remove new map initializaiton after development. Sepcified here to allow IntelliJ to autocomplete
+  state = {};
 
   componentDidMount() {
     const { reference } = this.props;
 
-    modelMapCache = new Map(Object.entries(reference)); // Converts the object to a map for reference.
+    this.modelMapCache = new Map(Object.entries(reference)); // Converts the object to a map for reference.
 
     const stateObject = {};
+
+    console.log("Iterating through reference keys...");
     for (const key in reference) {
+      console.log(`handling key: ${key}`);
       stateObject[key] = reference[key].defaultValue;
     }
+    console.log("finished iterating through reference keys");
 
     stateObject.submitted = false;
 
-    this.setState(stateObject);
+    console.log("StateObject:");
+    console.dir(stateObject);
 
-    // Debugging Purposes
-    console.log("Showing state...");
-    console.dir(this.state);
+    this.setState(stateObject, () => {
+      // Debugging Purposes
+      console.log("Showing state...");
+      console.dir(this.state);
+    });
   }
 
   handleSubmit(event) {
@@ -83,12 +92,12 @@ class AddEditModel extends Component {
       modelObject[prop] = this.state[prop];
     }
 
-    if (this.props.method.toUpperCase() == "POST") {
+    if (this.props.method.equalsIgnoreCase("POST")) {
       // CREATING
-      handleCreation(modelObject, true);
-    } else if (this.props.method.toUpperCase() == "PUT")
+      this.handleCreation(modelObject, true);
+    } else if (this.props.method.equalsIgnoreCase("PUT"))
       // EDITING
-      handleCreation(modelObject, false);
+      this.handleCreation(modelObject, false);
   }
 
   handleRequest(modelObject, creating) {
@@ -102,6 +111,11 @@ class AddEditModel extends Component {
       case "Calendar":
         break;
       case "Event":
+        break;
+      default:
+        console.error(
+          `Given model label doesn't match any expected labels: ${this.props.label}`
+        );
         break;
     }
 
@@ -120,8 +134,8 @@ class AddEditModel extends Component {
   render() {
     return (
       <>
-        <form className="add-edit-form" onSubmit={(e) => handleSubmit(e)}>
-          {Array.from(this.modelMapCache.map, (key, valueObject) => {
+        <form className="add-edit-form" onSubmit={(e) => this.handleSubmit(e)}>
+          {Array.from(this.modelMapCache, (key, valueObject) => {
             return (
               <label key={key}>
                 ${valueObject.label}:
@@ -140,7 +154,7 @@ class AddEditModel extends Component {
 
           <button type="submit">Submit</button>
         </form>
-        {submitted && <Redirect to={this.props.redirectURL} />}
+        {this.submitted && <Redirect to={this.props.redirectURL} />}
       </>
     );
   }
