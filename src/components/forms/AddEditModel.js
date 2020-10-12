@@ -86,7 +86,6 @@ class AddEditModel extends Component {
     //bind methods
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRequest = this.handleRequest.bind(this);
-    this.handleOnClick = this.handleOnClick.bind(this);
   }
 
   handleSubmit(event) {
@@ -145,14 +144,6 @@ class AddEditModel extends Component {
       });
   }
 
-  handleOnClick(e) {
-    console.log("Printing modelMapCache...");
-    [...this.modelMapCache.keys()].forEach((key) => {
-      console.log(`key: ${key} value: ${this.modelMapCache.get(key)}`);
-    });
-    console.log("Finished printing modelMapCache");
-  }
-
   render() {
     return (
       <>
@@ -176,8 +167,7 @@ class AddEditModel extends Component {
 
           <button type="submit">Submit</button>
         </form>
-        <button onClick={this.handleOnClick}>Test</button>
-        {this.submitted && <Redirect to={this.props.redirectURL} />}
+        {this.state.submitted && <Redirect to={this.props.redirectURL} />}
       </>
     );
   }
