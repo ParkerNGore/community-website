@@ -1,7 +1,7 @@
 import React from "react";
 
-import { getUsers } from "./service/UserService";
-import trimSequilzeDates from "./util/ModelUtil";
+import { getUsers, deleteUser } from "./service/UserService";
+import { trimSequilzeDates } from "./util/ModelUtil";
 
 /*
     Props:
@@ -54,6 +54,29 @@ function ModelList({ label }) {
       });
   }
 
+  function handleDelete(e, model) {
+    const isDeleteConfirmed = window.confirm(
+      `Are you sure you want to delete: ${model.username}?`
+    );
+
+    if (!isDeleteConfirmed) {
+      return;
+    }
+
+    deleteUser(model.id);
+    alert(`User ${model.username} has been deleted!`);
+
+    let newList = [];
+    for (let prop of modelList) {
+      if (prop.username === model.username) {
+        continue;
+      }
+      newList.push(prop);
+    }
+
+    setModelList(newList);
+  }
+
   return (
     <>
       {hasLoaded && <h1>Has Loaded!</h1>}
@@ -62,14 +85,22 @@ function ModelList({ label }) {
           .filter((i) => i !== undefined)
           .map((model) => {
             return (
-              <>
-                {<h2 key={model.key + "h2"}>User:</h2>}
+              <div key={model.username + "div"}>
+                {<h2 key={model.username + "h2"}>User:</h2>}
                 {Object.keys(model)
                   .filter((i) => i !== undefined)
                   .map((key) => {
-                    return <li key={model.key + "li"}>{model[key]}</li>;
+                    return <li key={key + "li"}>{model[key]}</li>;
                   })}
-              </>
+                {
+                  <button
+                    key={model.username + "delete"}
+                    onClick={(e) => handleDelete(e, model)}
+                  >
+                    Delete
+                  </button>
+                }
+              </div>
             );
           })}
     </>

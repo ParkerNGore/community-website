@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { createUser, updateUser, getUser } from "../service/UserService";
 import { Redirect } from "react-router-dom";
-import trimSequilzeDates from "../util/ModelUtil";
+import { trimSequilzeDatesAndID } from "../util/ModelUtil";
 
 /* 
     Props:
@@ -111,7 +111,7 @@ class AddEditModel extends Component {
         console.dir(response);
         console.dir(model);
 
-        model = trimSequilzeDates(model);
+        model = trimSequilzeDatesAndID(model);
 
         console.dir(model);
         console.log("Set State");
