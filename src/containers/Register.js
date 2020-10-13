@@ -19,7 +19,7 @@ function RegisterPage() {
             password: {
               label: "Password",
               defaultValue: "",
-              inputType: "text",
+              inputType: "password",
             },
             timezone: {
               label: "Timezone",

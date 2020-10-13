@@ -6,20 +6,20 @@ const getUsers = () => {
   return axios.get(`${BASE_URL}`);
 };
 
-const getUser = (userId) => {
-  return axios.get(`${BASE_URL}/${userId}`);
+const getUser = (userID) => {
+  return axios.get(`${BASE_URL}/${userID}`);
 };
 
 const createUser = (user) => {
   return axios.post(`${BASE_URL}/`, user);
 };
 
-const updateUser = (userId, user) => {
-  return axios.put(`${BASE_URL}/${userId}`, user);
+const updateUser = (userID, user) => {
+  return axios.put(`${BASE_URL}/${userID}`, user);
 };
 
-const deleteUser = (userId) => {
-  return axios.delete(`${BASE_URL}/${userId}`);
+const deleteUser = (userID) => {
+  return axios.delete(`${BASE_URL}/${userID}`);
 };
 
 export { getUsers, getUser, createUser, updateUser, deleteUser };
