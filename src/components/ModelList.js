@@ -1,6 +1,7 @@
 import React from "react";
 
 import { getUsers, deleteUser } from "./service/UserService";
+import { getCalendars, deleteCalendar } from "./service/CalendarService";
 import { trimSequilzeDates } from "./util/ModelUtil";
 
 /*
@@ -26,6 +27,7 @@ function ModelList({ label }) {
         requestPromise = getUsers();
         break;
       case "Calendar":
+        requestPromise = getCalendars();
         break;
       case "Event":
         break;
@@ -63,8 +65,23 @@ function ModelList({ label }) {
       return;
     }
 
-    deleteUser(model.id);
-    alert(`User ${model.username} has been deleted!`);
+    switch (this.props.label) {
+      case "User":
+        deleteUser(model.id);
+        break;
+      case "Calendar":
+        deleteCalendar(model.id);
+        break;
+      case "Event":
+        break;
+      default:
+        console.error(
+          `Given model label doesn't match any expected labels: ${this.props.label}`
+        );
+        break;
+    }
+
+    alert(`${this.prop.label} ${model.id} has been deleted!`);
 
     let newList = [];
     for (let prop of modelList) {
@@ -86,7 +103,7 @@ function ModelList({ label }) {
           .map((model) => {
             return (
               <div key={model.username + "div"}>
-                {<h2 key={model.username + "h2"}>User:</h2>}
+                {<h2 key={model.username + "h2"}>{label}:</h2>}
                 {Object.keys(model)
                   .filter((i) => i !== undefined)
                   .map((key) => {

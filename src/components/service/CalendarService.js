@@ -7,7 +7,7 @@ const getCalendars = () => {
 };
 
 const getCalendar = (calendarID) => {
-  return axios.get(`${BASE_URL}/${userID}`);
+  return axios.get(`${BASE_URL}/${calendarID}`);
 };
 
 const createCalendar = (calendar) => {

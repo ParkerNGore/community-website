@@ -15,35 +15,6 @@ function UserProfile() {
         <h1>Welcome to User Profile!</h1>
 
         <ModelList label={"User"} />
-
-        <button type="button" onClick={(e) => setLoginPressed(true)}>
-          Login
-        </button>
-
-        <button type="button" onClick={(e) => setRegisterPressed(true)}>
-          Register
-        </button>
-
-        <button type="button" onClick={(e) => setEditUserPressed(true)}>
-          EditUser
-        </button>
-
-        {loginPressed && <Redirect to={"/user-profile/login"} push={true} />}
-
-        {registerPressed && (
-          <Redirect to={"/user-profile/register"} push={true} />
-        )}
-
-        <input
-          value={editUserID}
-          onChange={(e) => {
-            setEditUserID(e.target.value);
-          }}
-          type="text"
-        />
-        {editUserPressed && (
-          <Redirect to={`/user-profile/edit-user/${editUserID}`} push={true} />
-        )}
       </main>
     </div>
   );
