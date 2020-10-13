@@ -22,4 +22,10 @@ const deleteCalendar = (calendarID) => {
   return axios.delete(`${BASE_URL}/${calendarID}`);
 };
 
-export { getUsers, getUser, createUser, updateUser, deleteUser };
+export {
+  getCalendars,
+  getCalendar,
+  createCalendar,
+  updateCalendar,
+  deleteCalendar,
+};
