@@ -1,6 +1,7 @@
 import React from "react";
-import { deleteCalendar } from "../service/CalendarService";
 import { Redirect } from "react-router-dom";
+
+import references from "../forms/ModelReferences";
 
 /**  
     Props:
@@ -16,6 +17,8 @@ import { Redirect } from "react-router-dom";
 
     `editButtonDisplay` The string displayed by the
     edit/change/update button
+
+    `label` The user type being used
 */
 
 function AddEditButtons({
@@ -23,11 +26,14 @@ function AddEditButtons({
   addButtonDisplay,
   editURL,
   editButtonDisplay,
+  label,
 }) {
   const [addPressed, setAddPressed] = React.useState(false);
   const [editPressed, setEditPressed] = React.useState(false);
 
   const [editID, setEditID] = React.useState(1);
+
+  const { userReference, calendarReference, eventReference } = references;
 
   return (
     <div class="add-edit-buttons-container">
@@ -44,7 +50,46 @@ function AddEditButtons({
         }}
         type="text"
       />
-      {editPressed && <Redirect to={`${editURL}/${editID}`} push={true} />}
+      {editPressed && label.toLowerCase() === "user" && (
+        <Redirect
+          to={{
+            pathname: `${editURL}/${editID}`,
+            state: { reference: userReference },
+          }}
+          push={true}
+        />
+      )}
+
+      {editPressed && label.toLowerCase() === "user" && (
+        <Redirect
+          to={{
+            pathname: `${editURL}/${editID}`,
+            state: { reference: userReference },
+          }}
+          push={true}
+        />
+      )}
+
+      {editPressed && label.toLowerCase() === "calendar" && (
+        <Redirect
+          to={{
+            pathname: `${editURL}/${editID}`,
+            state: { reference: calendarReference },
+          }}
+          push={true}
+        />
+      )}
+
+      {editPressed && label.toLowerCase() === "event" && (
+        <Redirect
+          to={{
+            pathname: `${editURL}/${editID}`,
+            state: { reference: eventReference },
+          }}
+          push={true}
+        />
+      )}
+
       {addPressed && <Redirect to={`${addURL}`} push={true} />}
     </div>
   );

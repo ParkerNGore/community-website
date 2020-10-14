@@ -79,6 +79,9 @@ class AddEditModel extends Component {
   }
 
   componentDidMount() {
+    console.log("IN CONSTRUCTOR OF ADDEDITMODEL:");
+    console.log(`Taco is: ${this.props.location.taco}`);
+
     if (this.props.method.toUpperCase() === "PUT") {
       this.handleRetrieveModel();
     }

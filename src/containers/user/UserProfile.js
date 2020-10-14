@@ -20,6 +20,7 @@ function UserProfile() {
           addButtonDisplay={"Create"}
           editURL={"/user-profile/edit-user"}
           editButtonDisplay={"Edit"}
+          label={"User"}
         />
       </main>
     </div>
