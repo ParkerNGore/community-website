@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Register.css";
 
-import AddEditModel from "../components/forms/AddEditModel";
+import AddEditModel from "../../components/forms/AddEditModel";
 
 function RegisterPage() {
   return (

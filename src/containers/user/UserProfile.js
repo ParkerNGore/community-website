@@ -1,7 +1,7 @@
 import React from "react";
-import AddEditButtons from "../components/forms/AddEditButtons";
+import AddEditButtons from "../../components/forms/AddEditButtons";
 
-import ModelList from "../components/ModelList";
+import ModelList from "../../components/ModelList";
 
 function UserProfile() {
   const [loginPressed, setLoginPressed] = React.useState(false);

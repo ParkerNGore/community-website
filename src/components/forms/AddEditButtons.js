@@ -2,7 +2,7 @@ import React from "react";
 import { deleteCalendar } from "../service/CalendarService";
 import { Redirect } from "react-router-dom";
 
-/*
+/**  
     Props:
     
     `addURL` The URL the user should be sent to

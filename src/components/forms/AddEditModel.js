@@ -3,7 +3,7 @@ import { createUser, updateUser, getUser } from "../service/UserService";
 import { Redirect } from "react-router-dom";
 import { trimSequilzeDatesAndID } from "../util/ModelUtil";
 
-/* 
+/** 
     Props:
 
     `reference` object should be a simple
@@ -195,6 +195,11 @@ class AddEditModel extends Component {
   render() {
     return (
       <>
+        <h1>
+          Welcome to the{" "}
+          {this.props.method.toUpperCase() === "POST" ? "Add" : "Edit"}{" "}
+          {this.props.label} Page!
+        </h1>
         <form className="add-edit-form" onSubmit={(e) => this.handleSubmit(e)}>
           {[...this.modelMapCache.keys()].map((key) => {
             return (

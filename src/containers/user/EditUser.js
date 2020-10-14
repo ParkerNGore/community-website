@@ -1,6 +1,6 @@
 import React from "react";
 
-import AddEditModel from "../components/forms/AddEditModel";
+import AddEditModel from "../../components/forms/AddEditModel";
 import { useParams } from "react-router-dom";
 
 function EditUser() {
@@ -9,7 +9,6 @@ function EditUser() {
   return (
     <div className="edit-user-container">
       <main>
-        <h1>Welcome to the Edit User Page!</h1>
         <AddEditModel
           reference={{
             username: {
