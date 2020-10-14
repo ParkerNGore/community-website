@@ -58,14 +58,14 @@ function ModelList({ label }) {
 
   function handleDelete(e, model) {
     const isDeleteConfirmed = window.confirm(
-      `Are you sure you want to delete: ${model.username}?`
+      `Are you sure you want to delete ${label} ${model.id}?`
     );
 
     if (!isDeleteConfirmed) {
       return;
     }
 
-    switch (this.props.label) {
+    switch (label) {
       case "User":
         deleteUser(model.id);
         break;
@@ -81,7 +81,7 @@ function ModelList({ label }) {
         break;
     }
 
-    alert(`${this.prop.label} ${model.id} has been deleted!`);
+    alert(`${label} ${model.id} has been deleted!`);
 
     let newList = [];
     for (let prop of modelList) {

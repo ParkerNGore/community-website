@@ -1,5 +1,6 @@
 import React from "react";
 import { deleteCalendar } from "../service/CalendarService";
+import { Redirect } from "react-router-dom";
 
 /*
     Props:
@@ -36,7 +37,6 @@ function AddEditButtons({
       <button type="button" onClick={(e) => setEditPressed(true)}>
         {editButtonDisplay}
       </button>
-      {registerPressed && <Redirect to={addURL} push={true} />}
       <input
         value={editID}
         onChange={(e) => {
@@ -49,3 +49,5 @@ function AddEditButtons({
     </div>
   );
 }
+
+export default AddEditButtons;
