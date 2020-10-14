@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-import references from "../forms/ModelReferences";
+import { references, labels, redirectURLs } from "../forms/ModelReferences";
 
 /**  
     Props:
@@ -35,8 +35,12 @@ function AddEditButtons({
 
   const { userReference, calendarReference, eventReference } = references;
 
+  function handleOnClick(name) {
+    console.log(`Called: ${name}`);
+  }
+
   return (
-    <div class="add-edit-buttons-container">
+    <div className="add-edit-buttons-container">
       <button type="button" onClick={(e) => setAddPressed(true)}>
         {addButtonDisplay}
       </button>
@@ -50,31 +54,36 @@ function AddEditButtons({
         }}
         type="text"
       />
-      {editPressed && label.toLowerCase() === "user" && (
-        <Redirect
-          to={{
-            pathname: `${editURL}/${editID}`,
-            state: { reference: userReference },
-          }}
-          push={true}
-        />
-      )}
 
-      {editPressed && label.toLowerCase() === "user" && (
-        <Redirect
-          to={{
-            pathname: `${editURL}/${editID}`,
-            state: { reference: userReference },
-          }}
-          push={true}
-        />
-      )}
+      {/* Handling Redirection */}
+
+      {editPressed &&
+        label.toLowerCase() === "user" &&
+        (console.log("Called User PUT") || (
+          <Redirect
+            to={{
+              pathname: `${editURL}/${editID}`,
+              state: {
+                reference: userReference,
+                label,
+                method: "PUT",
+                redirectURL: redirectURLs.userRedirectURL,
+              },
+            }}
+            push={true}
+          />
+        ))}
 
       {editPressed && label.toLowerCase() === "calendar" && (
         <Redirect
           to={{
             pathname: `${editURL}/${editID}`,
-            state: { reference: calendarReference },
+            state: {
+              reference: calendarReference,
+              label,
+              method: "PUT",
+              redirectURL: redirectURLs.calendarRedirectURL,
+            },
           }}
           push={true}
         />
@@ -84,13 +93,63 @@ function AddEditButtons({
         <Redirect
           to={{
             pathname: `${editURL}/${editID}`,
-            state: { reference: eventReference },
+            state: {
+              reference: eventReference,
+              label,
+              method: "PUT",
+              redirectURL: redirectURLs.eventRedirectURL,
+            },
           }}
           push={true}
         />
       )}
 
-      {addPressed && <Redirect to={`${addURL}`} push={true} />}
+      {addPressed &&
+        console.dir(addURL) == undefined &&
+        label.toLowerCase() === "user" && (
+          <Redirect
+            to={{
+              path: `${addURL}`,
+              state: {
+                reference: userReference,
+                label,
+                method: "POST",
+                redirectURL: redirectURLs.userRedirectURL,
+              },
+            }}
+            push={true}
+          />
+        )}
+
+      {addPressed && label.toLowerCase() === "calendar" && (
+        <Redirect
+          to={{
+            path: `${addURL}`,
+            state: {
+              reference: calendarReference,
+              label,
+              method: "POST",
+              redirectURL: redirectURLs.calendarRedirectURL,
+            },
+          }}
+          push={true}
+        />
+      )}
+
+      {addPressed && label.toLowerCase() === "event" && (
+        <Redirect
+          to={{
+            path: `${addURL}`,
+            state: {
+              reference: eventReference,
+              label,
+              method: "POST",
+              redirectURL: redirectURLs.eventRedirectURL,
+            },
+          }}
+          push={true}
+        />
+      )}
     </div>
   );
 }

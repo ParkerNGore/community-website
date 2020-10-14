@@ -1,4 +1,4 @@
-export default {
+export const references = {
   userReference: {
     username: {
       label: "Username",
@@ -8,7 +8,7 @@ export default {
     password: {
       label: "Password",
       defaultValue: "",
-      inputType: "text",
+      inputType: "password",
     },
     timezone: {
       label: "Timezone",
@@ -50,4 +50,16 @@ export default {
       inputType: "time",
     },
   },
+};
+
+export const labels = {
+  userLabel: "User",
+  calendarLabel: "Calendar",
+  eventsLabel: "Event",
+};
+
+export const redirectURLs = {
+  userRedirectURL: "/user-profile",
+  calendarRedirectURL: "/calendar",
+  eventRedirectURL: "/calendar",
 };

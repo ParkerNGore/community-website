@@ -38,9 +38,7 @@ function UserProfileSwitch() {
       <Route
         path="/user-profile/edit-user/:id"
         render={(props) => <AddEditModel {...props} />}
-      >
-        {/* <EditUser /> */}
-      </Route>
+      />
     </Switch>
   );
 }

@@ -38,8 +38,6 @@ import { trimSequilzeDatesAndID } from "../util/ModelUtil";
     `method` is the HTTP method we'd like to invoke for this model.
     Options are `POST`, and `PUT` as we are only dealing with adding and editing a model.
 
-    `id` is the id of a target model if specified. Used for editing
-
     `redirectURL` is where the user will be
     redirected if the submission was successful
 
@@ -54,7 +52,7 @@ class AddEditModel extends Component {
   constructor(props) {
     super(props);
 
-    const { reference } = this.props;
+    const reference = this.props.location.state.reference;
 
     this.modelMapCache = new Map(Object.entries(reference)); // Converts the object to a map for reference.
 
@@ -66,7 +64,7 @@ class AddEditModel extends Component {
 
     stateObject.submitted = false;
 
-    if (this.props.method.toUpperCase() === "PUT") {
+    if (this.props.location.state.method.toUpperCase() === "PUT") {
       stateObject.retrievedObject = false;
     }
 
@@ -80,9 +78,10 @@ class AddEditModel extends Component {
 
   componentDidMount() {
     console.log("IN CONSTRUCTOR OF ADDEDITMODEL:");
-    console.log(`Taco is: ${this.props.location.taco}`);
+    console.log(`Reference is: `);
+    console.dir(this.props.location.state.reference);
 
-    if (this.props.method.toUpperCase() === "PUT") {
+    if (this.props.location.state.method.toUpperCase() === "PUT") {
       this.handleRetrieveModel();
     }
   }
@@ -90,10 +89,11 @@ class AddEditModel extends Component {
   handleRetrieveModel() {
     console.log("called handleRetrieveModel");
     //TODO: avoid repeating code and perhaps create a static map reference between label and a list of update and create methods
+    const { id } = this.props.match.params.id;
     let requestPromise;
-    switch (this.props.label) {
+    switch (this.props.location.state.label) {
       case "User":
-        requestPromise = getUser(this.props.id);
+        requestPromise = getUser(id);
         break;
       case "Calendar":
         break;
@@ -154,23 +154,24 @@ class AddEditModel extends Component {
 
     console.log(`method is string: ${typeof this.props.method === "string"}`);
 
-    if (this.props.method.toUpperCase() === "POST") {
+    if (this.props.location.state.method.toUpperCase() === "POST") {
       // CREATING
       this.handleRequest(modelObject, true);
-    } else if (this.props.method.toUpperCase() === "PUT")
+    } else if (this.props.location.state.method.toUpperCase() === "PUT")
       // EDITING
       this.handleRequest(modelObject, false);
   }
 
   handleRequest(modelObject, creating) {
+    const id = this.props.match.params.id;
     let requestPromise;
-    switch (this.props.label) {
+    switch (this.props.location.state.label) {
       case "User":
         console.log("ModelObject for updateUser:");
         console.dir(modelObject);
         requestPromise = creating
           ? createUser(modelObject)
-          : updateUser(this.props.id, modelObject);
+          : updateUser(id, modelObject);
         break;
       case "Calendar":
         break;
@@ -186,7 +187,9 @@ class AddEditModel extends Component {
     requestPromise
       .then(() => {
         alert(
-          `Successfully ${creating ? "created" : "edited"} ${this.props.label}!`
+          `Successfully ${creating ? "created" : "edited"} ${
+            this.props.location.state.label
+          }!`
         );
         this.setState({ submitted: true });
       })
@@ -200,7 +203,9 @@ class AddEditModel extends Component {
       <>
         <h1>
           Welcome to the{" "}
-          {this.props.method.toUpperCase() === "POST" ? "Add" : "Edit"}{" "}
+          {this.props.location.state.method.toUpperCase() === "POST"
+            ? "Add"
+            : "Edit"}{" "}
           {this.props.label} Page!
         </h1>
         <form className="add-edit-form" onSubmit={(e) => this.handleSubmit(e)}>
@@ -223,7 +228,9 @@ class AddEditModel extends Component {
 
           <button type="submit">Submit</button>
         </form>
-        {this.state.submitted && <Redirect to={this.props.redirectURL} />}
+        {this.state.submitted && (
+          <Redirect to={this.props.location.state.redirectURL} />
+        )}
       </>
     );
   }
