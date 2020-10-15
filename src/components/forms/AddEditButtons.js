@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-import { references, labels, redirectURLs } from "../forms/ModelReferences";
+import { references, redirectURLs } from "../forms/ModelReferences";
 
 /**  
     Props:

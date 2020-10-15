@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { createUser, updateUser, getUser } from "../service/UserService";
 import { Redirect } from "react-router-dom";
 import { trimSequilzeDatesAndID } from "../util/ModelUtil";
+import "./AddEditModel.css";
 
 /** 
     Props:

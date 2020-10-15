@@ -52,12 +52,6 @@ export const references = {
   },
 };
 
-export const labels = {
-  userLabel: "User",
-  calendarLabel: "Calendar",
-  eventsLabel: "Event",
-};
-
 export const redirectURLs = {
   userRedirectURL: "/user-profile",
   calendarRedirectURL: "/calendar",

@@ -3,12 +3,7 @@ import MainContainersSwitch from "./MainContainersSwitch";
 import UserProfileSwitch from "./UserProfileSwitch";
 
 import NavigationBar from "../../components/navigation/NavigationBar";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function MainSwitch() {
   return (
