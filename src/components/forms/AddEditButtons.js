@@ -35,10 +35,6 @@ function AddEditButtons({
 
   const { userReference, calendarReference, eventReference } = references;
 
-  function handleOnClick(name) {
-    console.log(`Called: ${name}`);
-  }
-
   return (
     <div className="add-edit-buttons-container">
       <button type="button" onClick={(e) => setAddPressed(true)}>
@@ -104,27 +100,25 @@ function AddEditButtons({
         />
       )}
 
-      {addPressed &&
-        console.dir(addURL) == undefined &&
-        label.toLowerCase() === "user" && (
-          <Redirect
-            to={{
-              path: `${addURL}`,
-              state: {
-                reference: userReference,
-                label,
-                method: "POST",
-                redirectURL: redirectURLs.userRedirectURL,
-              },
-            }}
-            push={true}
-          />
-        )}
+      {addPressed && label.toLowerCase() === "user" && (
+        <Redirect
+          to={{
+            pathname: addURL,
+            state: {
+              reference: userReference,
+              label,
+              method: "POST",
+              redirectURL: redirectURLs.userRedirectURL,
+            },
+          }}
+          push={true}
+        />
+      )}
 
       {addPressed && label.toLowerCase() === "calendar" && (
         <Redirect
           to={{
-            path: `${addURL}`,
+            pathname: `${addURL}`,
             state: {
               reference: calendarReference,
               label,
@@ -139,7 +133,7 @@ function AddEditButtons({
       {addPressed && label.toLowerCase() === "event" && (
         <Redirect
           to={{
-            path: `${addURL}`,
+            pathname: `${addURL}`,
             state: {
               reference: eventReference,
               label,

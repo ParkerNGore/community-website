@@ -28,13 +28,17 @@ function UserProfileSwitch() {
 
   return (
     <Switch>
-      <Route path="/user-profile/login">
+      <Route
+        path="/user-profile/login"
+        render={(props) => <AddEditModel {...props} />}
+      >
         <LoginPage />
       </Route>
 
-      <Route path="/user-profile/register">
-        <RegisterPage />
-      </Route>
+      <Route
+        path="/user-profile/register"
+        render={(props) => <AddEditModel {...props} />}
+      />
       <Route
         path="/user-profile/edit-user/:id"
         render={(props) => <AddEditModel {...props} />}

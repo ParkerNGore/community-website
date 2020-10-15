@@ -20,12 +20,12 @@ function MainSwitch() {
         // Used to redirect any user at "/" to "/homepage" to
         // ensure the NavLink activeClass works as expected
       }
-
+      {/* 
       <Switch>
         <Route exact path="/">
           <Redirect to="/home-page" />
         </Route>
-      </Switch>
+      </Switch> */}
 
       <MainContainersSwitch />
 

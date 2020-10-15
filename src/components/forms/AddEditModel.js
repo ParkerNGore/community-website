@@ -54,7 +54,9 @@ class AddEditModel extends Component {
 
     const reference = this.props.location.state.reference;
 
-    this.modelMapCache = new Map(Object.entries(reference)); // Converts the object to a map for reference.
+    this.modelMapCache = new Map(
+      Object.entries(this.props.location.state.reference)
+    ); // Converts the object to a map for reference.
 
     const stateObject = {};
 
@@ -77,19 +79,16 @@ class AddEditModel extends Component {
   }
 
   componentDidMount() {
-    console.log("IN CONSTRUCTOR OF ADDEDITMODEL:");
-    console.log(`Reference is: `);
-    console.dir(this.props.location.state.reference);
-
     if (this.props.location.state.method.toUpperCase() === "PUT") {
       this.handleRetrieveModel();
     }
   }
 
   handleRetrieveModel() {
-    console.log("called handleRetrieveModel");
     //TODO: avoid repeating code and perhaps create a static map reference between label and a list of update and create methods
+
     const { id } = this.props.match.params.id;
+
     let requestPromise;
     switch (this.props.location.state.label) {
       case "User":
@@ -101,7 +100,7 @@ class AddEditModel extends Component {
         break;
       default:
         console.error(
-          `Given model label doesn't match any expected labels: ${this.props.label}`
+          `Given model label doesn't match any expected labels: ${this.props.location.state.label}`
         );
         break;
     }
@@ -110,30 +109,15 @@ class AddEditModel extends Component {
       .then((response) => {
         let model = response.data;
 
-        console.log("Response:");
-        console.dir(response);
-        console.dir(model);
-
         model = trimSequilzeDatesAndID(model);
 
-        console.dir(model);
-        console.log("Set State");
-        thisReference.setState(model, () => {
-          console.log(`State has been set. State...`);
-          console.dir(thisReference.state);
+        thisReference.setState(model);
+        thisReference.setState({
+          retrievedObject: true,
         });
-        thisReference.setState(
-          {
-            retrievedObject: true,
-          },
-          () => {
-            console.log(`retrievedObject has been set. State...`);
-            console.dir(thisReference.state);
-          }
-        );
       })
       .catch((error) => {
-        console.log(`Error: ${error}`);
+        console.error(`Error: ${error}`);
       });
   }
 
@@ -152,8 +136,6 @@ class AddEditModel extends Component {
       modelObject[prop] = this.state[prop];
     }
 
-    console.log(`method is string: ${typeof this.props.method === "string"}`);
-
     if (this.props.location.state.method.toUpperCase() === "POST") {
       // CREATING
       this.handleRequest(modelObject, true);
@@ -163,12 +145,13 @@ class AddEditModel extends Component {
   }
 
   handleRequest(modelObject, creating) {
-    const id = this.props.match.params.id;
     let requestPromise;
+    let id;
+    if (!creating) {
+      id = this.props.match.params.id;
+    }
     switch (this.props.location.state.label) {
       case "User":
-        console.log("ModelObject for updateUser:");
-        console.dir(modelObject);
         requestPromise = creating
           ? createUser(modelObject)
           : updateUser(id, modelObject);
@@ -179,7 +162,7 @@ class AddEditModel extends Component {
         break;
       default:
         console.error(
-          `Given model label doesn't match any expected labels: ${this.props.label}`
+          `Given model label doesn't match any expected labels: ${this.props.location.state.label}`
         );
         break;
     }
@@ -206,7 +189,7 @@ class AddEditModel extends Component {
           {this.props.location.state.method.toUpperCase() === "POST"
             ? "Add"
             : "Edit"}{" "}
-          {this.props.label} Page!
+          {this.props.location.state.label} Page!
         </h1>
         <form className="add-edit-form" onSubmit={(e) => this.handleSubmit(e)}>
           {[...this.modelMapCache.keys()].map((key) => {
