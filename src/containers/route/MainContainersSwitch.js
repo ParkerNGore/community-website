@@ -22,7 +22,7 @@ function MainContainersSwitch() {
         <Forum />
       </Route>
 
-      <Route path="/calendar">
+      <Route exact path="/calendar">
         <Calendar />
       </Route>
 

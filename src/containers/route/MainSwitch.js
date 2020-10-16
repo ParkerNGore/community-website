@@ -1,6 +1,7 @@
 import React from "react";
 import MainContainersSwitch from "./MainContainersSwitch";
 import UserProfileSwitch from "./UserProfileSwitch";
+import CalendarSwitch from "./CalendarSwitch";
 
 import NavigationBar from "../../components/navigation/NavigationBar";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -25,6 +26,7 @@ function MainSwitch() {
       <MainContainersSwitch />
 
       <UserProfileSwitch />
+      <CalendarSwitch />
     </Router>
   );
 }

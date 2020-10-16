@@ -20,7 +20,6 @@ function ModelList({ label }) {
 
   if (!hasStartedLoading) {
     setHasStartedLoading(true);
-    console.log("Running!");
     let requestPromise;
     switch (label) {
       case "User":
@@ -85,7 +84,7 @@ function ModelList({ label }) {
 
     let newList = [];
     for (let prop of modelList) {
-      if (prop.username === model.username) {
+      if (prop.id === model.id) {
         continue;
       }
       newList.push(prop);
@@ -102,8 +101,8 @@ function ModelList({ label }) {
           .filter((i) => i !== undefined)
           .map((model) => {
             return (
-              <div key={model.username + "div"}>
-                {<h2 key={model.username + "h2"}>{label}:</h2>}
+              <div key={model.id + "div"}>
+                {<h2 key={model.id + "h2"}>{label}:</h2>}
                 {Object.keys(model)
                   .filter((i) => i !== undefined)
                   .map((key) => {
@@ -111,7 +110,7 @@ function ModelList({ label }) {
                   })}
                 {
                   <button
-                    key={model.username + "delete"}
+                    key={model.idid + "delete"}
                     onClick={(e) => handleDelete(e, model)}
                   >
                     Delete

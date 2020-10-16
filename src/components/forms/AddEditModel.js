@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import { createUser, updateUser, getUser } from "../service/UserService";
+import {
+  createCalendar,
+  updateCalendar,
+  getCalendar,
+} from "../service/CalendarService";
 import { Redirect } from "react-router-dom";
 import { trimSequilzeDatesAndID } from "../util/ModelUtil";
 import "./AddEditModel.css";
@@ -96,6 +101,7 @@ class AddEditModel extends Component {
         requestPromise = getUser(id);
         break;
       case "Calendar":
+        requestPromise = getCalendar(id);
         break;
       case "Event":
         break;
@@ -158,6 +164,9 @@ class AddEditModel extends Component {
           : updateUser(id, modelObject);
         break;
       case "Calendar":
+        requestPromise = creating
+          ? createCalendar(modelObject)
+          : updateCalendar(id, modelObject);
         break;
       case "Event":
         break;
