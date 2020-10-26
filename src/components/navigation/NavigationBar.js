@@ -37,7 +37,18 @@ function NavigationBar(props) {
     );
   });
 
-  return <nav>{navLinks}</nav>;
+  return (
+    <nav>
+      {navLinks}
+      <a
+        href={`http://localhost:${
+          process.env.PORT ? process.env.PORT : 3005
+        }/api/oauth2/login`}
+      >
+        Login with Discord
+      </a>
+    </nav>
+  );
 }
 
 export default NavigationBar;
